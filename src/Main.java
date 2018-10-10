@@ -10,16 +10,17 @@ public class Main {
     }
 
     private static int inputTree() {
-        // FIXME NoSuchElementException
+
         int numberOfTree;
-        try (Scanner scan = new Scanner(System.in)) {
+        Scanner scan = new Scanner(System.in);
+        try {
             System.out.print("#Trees : ");
             numberOfTree = scan.nextInt();
             if (numberOfTree < 0) throw new Exception();
         } catch (Exception e) {
             // e.printStackTrace();
             numberOfTree = 0;
-            System.err.println("Invalid Input, Please Try Again.");
+            System.out.println("Invalid Input, Please Try Again.\n");
         }
 
         return numberOfTree;
