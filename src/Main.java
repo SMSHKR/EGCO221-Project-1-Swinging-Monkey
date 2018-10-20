@@ -21,12 +21,21 @@ public class Main {
             ArrayList<Integer> treeHeight = inputHeight(numberOfTree);
             ArrayDeque<int []> swingingPath = calculatePath(treeHeight);
 
+            printPath(swingingPath, treeHeight);
             System.out.println("\nTotal Swinging Path = " + swingingPath.size());
 
             choice = inputContinue();
 
         } while (choice.equalsIgnoreCase("Y"));
 
+    }
+
+    private static void printPath(ArrayDeque<int []> swingingPath, ArrayList<Integer> treeHeight) {
+        int count = 0;
+        for (int [] path : swingingPath) {
+            count++;
+            System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", count, treeHeight.get(path[0]), treeHeight.get(path[1]));
+        }
     }
 
     private static ArrayDeque<int []> calculatePath(ArrayList<Integer> treeHeight) {
@@ -37,10 +46,10 @@ public class Main {
         ArrayDeque<Integer> indexStack = new ArrayDeque<>();
 
         for (int i = 0; i < treeHeight.size(); i++) {
-            if (indexStack.isEmpty()) indexStack.offer(i);
+            if (indexStack.isEmpty()) indexStack.push(i);
             else {
                 calculatePath(swingingPath, indexStack, treeHeight, i);
-                indexStack.offer(i);
+                indexStack.push(i);
             }
         }
 
@@ -53,7 +62,6 @@ public class Main {
         if (indexStack.isEmpty()) return;
         int [] path = {indexStack.peek(), i};
         swingingPath.add(path);
-        printPath(swingingPath.size(), path, treeHeight);
         if (treeHeight.get(indexStack.peek()) < treeHeight.get(i)) {
             indexStack.pop();
             calculatePath(swingingPath, indexStack, treeHeight, i);
@@ -67,10 +75,6 @@ public class Main {
             }
         }
         */
-    }
-
-    private static void printPath(int count, int [] path, ArrayList<Integer> treeHeight) {
-        System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", count, treeHeight.get(path[0]), treeHeight.get(path[1]));
     }
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
