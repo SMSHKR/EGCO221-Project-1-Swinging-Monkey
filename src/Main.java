@@ -22,16 +22,18 @@ public class Main {
         String choice;
         Scanner scan = new Scanner(System.in);
 
-        try {
-            System.out.print("Do you want to continue ? (Y/N) : ");
-            choice = scan.next();
-            choice = choice.trim();
-            if (!choice.equalsIgnoreCase("Y") && !choice.equalsIgnoreCase("N"))
-                throw new Exception();
-        } catch (Exception e) {
-            System.out.println("Invalid Input, Please Try Again.\n");
-            choice = inputChoice();
-        }
+        do {
+            try {
+                System.out.print("\nDo you want to continue ? (Y/N) : ");
+                choice = scan.nextLine();
+                choice = choice.trim();
+                if (!choice.equalsIgnoreCase("Y") && !choice.equalsIgnoreCase("N"))
+                    throw new Exception();
+            } catch (Exception e) {
+                System.out.println("Invalid Input, Please Try Again.");
+                choice = "0";
+            }
+        } while (choice.equalsIgnoreCase("0"));
 
         return choice;
 
