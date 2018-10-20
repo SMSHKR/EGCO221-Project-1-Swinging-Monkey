@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,11 +13,39 @@ public class Main {
 
             int numberOfTree = inputTree();
             ArrayList<Integer> treeHeight = inputHeight(numberOfTree);
+            int numberOfSwingingPath = calculatePath(treeHeight);
+
+            System.out.println("Total Swinging Path = " + numberOfSwingingPath);
 
             choice = inputContinue();
 
         } while (choice.equalsIgnoreCase("Y"));
 
+
+    }
+
+    private static int calculatePath(ArrayList<Integer> treeHeight) {
+
+        int numberOfSwingingPath = 0;
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+
+        for (int height : treeHeight) {
+            if (stack.isEmpty()) stack.push(height);
+            else {
+                numberOfSwingingPath++;
+                System.out.printf("%3d   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
+                while (!stack.isEmpty() && stack.peek() < height) {
+                    stack.pop();
+                    if (!stack.isEmpty()) {
+                        numberOfSwingingPath++;
+                        System.out.printf("%3d   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
+                    }
+                }
+                stack.push(height);
+            }
+        }
+
+        return numberOfSwingingPath;
 
     }
 
