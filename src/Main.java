@@ -16,7 +16,7 @@ public class Main {
         try {
             System.out.print("#Trees : ");
             numberOfTree = scan.nextInt();
-            if (numberOfTree < 0) throw new Exception();
+            if (numberOfTree <= 0) throw new Exception();
         } catch (Exception e) {
             // e.printStackTrace();
             numberOfTree = 0;
