@@ -31,9 +31,9 @@ public class Main {
                     throw new Exception();
             } catch (Exception e) {
                 System.out.println("Invalid Input, Please Try Again.");
-                choice = "0";
+                choice = "";
             }
-        } while (choice.equalsIgnoreCase("0"));
+        } while (choice.equalsIgnoreCase(""));
 
         return choice;
 
