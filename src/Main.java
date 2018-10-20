@@ -15,7 +15,7 @@ public class Main {
             ArrayList<Integer> treeHeight = inputHeight(numberOfTree);
             int numberOfSwingingPath = calculatePath(treeHeight);
 
-            System.out.println("Total Swinging Path = " + numberOfSwingingPath);
+            System.out.println("\nTotal Swinging Path = " + numberOfSwingingPath);
 
             choice = inputContinue();
 
@@ -26,6 +26,8 @@ public class Main {
 
     private static int calculatePath(ArrayList<Integer> treeHeight) {
 
+        System.out.println();
+
         int numberOfSwingingPath = 0;
         ArrayDeque<Integer> stack = new ArrayDeque<>();
 
@@ -33,12 +35,12 @@ public class Main {
             if (stack.isEmpty()) stack.push(height);
             else {
                 numberOfSwingingPath++;
-                System.out.printf("%3d   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
+                System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
                 while (!stack.isEmpty() && stack.peek() < height) {
                     stack.pop();
                     if (!stack.isEmpty()) {
                         numberOfSwingingPath++;
-                        System.out.printf("%3d   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
+                        System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
                     }
                 }
                 stack.push(height);
@@ -51,10 +53,12 @@ public class Main {
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
 
+        System.out.println();
         System.out.println("    1. Random Tree Height");
         System.out.println("    2. Manual Input Height");
 
         int choice = inputChoice();
+        System.out.println();
         ArrayList<Integer> treeHeight = new ArrayList<>();
 
         if (choice == 1) {
@@ -96,6 +100,7 @@ public class Main {
             System.out.println("Invalid Input, Please Try Again.\n");
             choice = inputChoice();
         }
+
 
         return choice;
 
