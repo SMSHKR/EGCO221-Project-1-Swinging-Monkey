@@ -21,7 +21,6 @@ public class Main {
 
         } while (choice.equalsIgnoreCase("Y"));
 
-
     }
 
     private static ArrayDeque<int []> calculatePath(ArrayList<Integer> treeHeight) {
@@ -29,13 +28,13 @@ public class Main {
         System.out.println();
 
         ArrayDeque<int []> swingingPath = new ArrayDeque<>();
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        ArrayDeque<Integer> indexStack = new ArrayDeque<>();
 
-        for (int height : treeHeight) {
-            if (stack.isEmpty()) stack.push(height);
+        for (int i = 0; i < treeHeight.size(); i++) {
+            if (indexStack.isEmpty()) indexStack.push(i);
             else {
-                calculatePath(swingingPath, stack, height);
-                stack.push(height);
+                calculatePath(swingingPath, indexStack, treeHeight, i);
+                indexStack.push(i);
             }
         }
 
@@ -43,28 +42,28 @@ public class Main {
 
     }
 
-    private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> stack, int height) {
-        if (stack.isEmpty()) return;
-        int [] path = {stack.peek(), height};
+    private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> indexStack, ArrayList<Integer> treeHeight, int i) {
+        if (indexStack.isEmpty()) return;
+        int [] path = {indexStack.peek(), i};
         swingingPath.add(path);
-        printPath(swingingPath.size(), path);
-        if (path[0] < height) {
-            stack.pop();
-            calculatePath(swingingPath, stack, height);
+        printPath(swingingPath.size(), path, treeHeight);
+        if (treeHeight.get(indexStack.peek()) < treeHeight.get(i)) {
+            indexStack.pop();
+            calculatePath(swingingPath, indexStack, treeHeight, i);
         }
         /*
-        while (!stack.isEmpty() && stack.peek() < height) {
-            stack.pop();
-            if (!stack.isEmpty()) {
+        while (!indexStack.isEmpty() && indexStack.peek() < height) {
+            indexStack.pop();
+            if (!indexStack.isEmpty()) {
                 numberOfSwingingPath++;
-                System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, stack.peek(), height);
+                System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, indexStack.peek(), height);
             }
         }
         */
     }
 
-    private static void printPath(int count, int [] path) {
-        System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", count, path[0], path[1]);
+    private static void printPath(int count, int [] path, ArrayList<Integer> treeHeight) {
+        System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", count, treeHeight.get(path[0]), treeHeight.get(path[1]));
     }
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
