@@ -1,4 +1,4 @@
-# EGCO221 Project 1 ArrayList
+# EGCO221 Project 1 Swinging Monkey
 By
    - Smanta     Thongtienchai   6013128   EGCO
    - Jirawat    Jeansuwan       6013286   EGCO
