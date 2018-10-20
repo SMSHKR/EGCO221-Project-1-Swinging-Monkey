@@ -8,8 +8,7 @@ public class Main {
 
         do {
 
-            int numberOfTree = 0;
-            while (numberOfTree == 0) numberOfTree = inputTree();
+            int numberOfTree = inputTree();
 
             choice = inputChoice();
 
@@ -48,8 +47,8 @@ public class Main {
             numberOfTree = scan.nextInt();
             if (numberOfTree <= 0) throw new Exception();
         } catch (Exception e) {
-            numberOfTree = 0;
             System.out.println("Invalid Input, Please Try Again.\n");
+            numberOfTree = inputTree();
         }
 
         return numberOfTree;
