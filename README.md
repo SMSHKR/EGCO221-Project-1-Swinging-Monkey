@@ -1,4 +1,4 @@
-# EGCO213 Project 1 Employee Rewards
+# EGCO221 Project 1 ArrayList
 By
    - Smanta     Thongtienchai   6013128   EGCO
    - Jirawat    Jeansuwan       6013286   EGCO
