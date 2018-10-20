@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -9,15 +11,68 @@ public class Main {
         do {
 
             int numberOfTree = inputTree();
+            ArrayDeque<Integer> treeHeight = inputHeight(numberOfTree);
 
-            choice = inputChoice();
+            choice = inputContinue();
 
         } while (choice.equalsIgnoreCase("Y"));
 
 
     }
 
-    private static String inputChoice() {
+    private static ArrayDeque<Integer> inputHeight(int numberOfTree) {
+
+        System.out.println("    1. Random Tree Height");
+        System.out.println("    2. Manual Input Height");
+
+        int choice = inputChoice();
+        ArrayDeque<Integer> treeHeight = new ArrayDeque<>();
+
+        if (choice == 1) {
+            Random rand = new Random();
+            for (int i = 1; i <= numberOfTree; i++) {
+                int height = rand.nextInt(100) + 1;
+                treeHeight.push(height);
+                System.out.println("    Tree #" + i + " Height = " + height);
+            }
+        } else {
+            for (int i = 1; i <= numberOfTree; i++) {
+                int height;
+                do {
+                    try {
+                        Scanner scan = new Scanner(System.in);
+                        System.out.print("    Tree #" + i + " Height [1-100] = ");
+                        height = scan.nextInt();
+                        if (height > 100 || height < 1) throw new Exception();
+                    } catch (Exception e) { height = 0; }
+                } while (height == 0);
+                treeHeight.push(height);
+            }
+        }
+
+        return treeHeight;
+
+    }
+
+    private static int inputChoice() {
+
+        int choice;
+        Scanner scan = new Scanner(System.in);
+
+        try {
+            System.out.print("Choice = ");
+            choice = scan.nextInt();
+            if (choice > 2 || choice < 1) throw new Exception();
+        } catch (Exception e) {
+            System.out.println("Invalid Input, Please Try Again.\n");
+            choice = inputChoice();
+        }
+
+        return choice;
+
+    }
+
+    private static String inputContinue() {
 
         String choice;
         Scanner scan = new Scanner(System.in);
