@@ -28,35 +28,36 @@ public class Main {
         System.out.println();
 
         ArrayDeque<int []> swingingPath = new ArrayDeque<>();
-        ArrayDeque<Integer> indexStack = new ArrayDeque<>();
+        ArrayDeque<Integer> indexQueue = new ArrayDeque<>();
 
         for (int i = 0; i < treeHeight.size(); i++) {
-            if (indexStack.isEmpty()) indexStack.push(i);
+            if (indexQueue.isEmpty()) indexQueue.push(i);
             else {
-                calculatePath(swingingPath, indexStack, treeHeight, i);
-                indexStack.push(i);
+                calculatePath(swingingPath, indexQueue, treeHeight, i);
+                indexQueue.push(i);
             }
         }
 
         return swingingPath;
 
+
     }
 
-    private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> indexStack, ArrayList<Integer> treeHeight, int i) {
-        if (indexStack.isEmpty()) return;
-        int [] path = {indexStack.peek(), i};
+    private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> indexQueue, ArrayList<Integer> treeHeight, int i) {
+        if (indexQueue.isEmpty()) return;
+        int [] path = {indexQueue.peek(), i};
         swingingPath.add(path);
         printPath(swingingPath.size(), path, treeHeight);
-        if (treeHeight.get(indexStack.peek()) < treeHeight.get(i)) {
-            indexStack.pop();
-            calculatePath(swingingPath, indexStack, treeHeight, i);
+        if (treeHeight.get(indexQueue.peek()) < treeHeight.get(i)) {
+            indexQueue.pop();
+            calculatePath(swingingPath, indexQueue, treeHeight, i);
         }
         /*
-        while (!indexStack.isEmpty() && indexStack.peek() < height) {
-            indexStack.pop();
-            if (!indexStack.isEmpty()) {
+        while (!indexQueue.isEmpty() && indexQueue.peek() < height) {
+            indexQueue.pop();
+            if (!indexQueue.isEmpty()) {
                 numberOfSwingingPath++;
-                System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, indexStack.peek(), height);
+                System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, indexQueue.peek(), height);
             }
         }
         */
@@ -67,7 +68,6 @@ public class Main {
     }
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
-
         System.out.println();
         System.out.println("    1. Random Tree Height");
         System.out.println("    2. Manual Input Height");
@@ -81,6 +81,7 @@ public class Main {
             for (int i = 1; i <= numberOfTree; i++) {
                 int height = rand.nextInt(100) + 1;
                 treeHeight.add(height);
+
                 System.out.println("    Tree #" + i + " Height = " + height);
             }
         } else {
@@ -108,7 +109,7 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         try {
-            System.out.print("Choice = ");
+            System.out.print("\nChoice = ");
             choice = scan.nextInt();
             if (choice > 2 || choice < 1) throw new Exception();
         } catch (Exception e) {
@@ -149,6 +150,11 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         try {
+            System.out.printf(" ---- \n" +
+                    "/    \\ \n" +
+                    "\\    /\n" +
+                    " ---- \n" +
+                    "  ||  \n");
             System.out.print("#Trees : ");
             numberOfTree = scan.nextInt();
             if (numberOfTree <= 0) throw new Exception();
