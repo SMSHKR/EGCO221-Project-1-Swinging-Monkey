@@ -22,7 +22,7 @@ public class Main {
             ArrayDeque<int []> swingingPath = calculatePath(treeHeight);
 
             printPath(swingingPath, treeHeight);
-            System.out.println("\nTotal Swinging Path = " + swingingPath.size());
+            System.out.printf("\nTotal Swinging Path = %,d\n", swingingPath.size());
 
             choice = inputContinue();
 
@@ -31,6 +31,8 @@ public class Main {
     }
 
     private static void printPath(ArrayDeque<int []> swingingPath, ArrayList<Integer> treeHeight) {
+        if (swingingPath.size() == 0) return;
+        System.out.println();
         int count = 0;
         for (int [] path : swingingPath) {
             count++;
@@ -39,8 +41,6 @@ public class Main {
     }
 
     private static ArrayDeque<int []> calculatePath(ArrayList<Integer> treeHeight) {
-
-        System.out.println();
 
         ArrayDeque<int []> swingingPath = new ArrayDeque<>();
         ArrayDeque<Integer> indexStack = new ArrayDeque<>();
@@ -62,8 +62,9 @@ public class Main {
         if (indexStack.isEmpty()) return;
         int [] path = {indexStack.peek(), i};
         swingingPath.add(path);
-        if (treeHeight.get(indexStack.peek()) < treeHeight.get(i)) {
-            indexStack.pop();
+        if (treeHeight.get(path[0]) < treeHeight.get(path[1])) {
+            do { indexStack.pop(); }
+            while (!indexStack.isEmpty() && treeHeight.get(indexStack.peek()).equals(treeHeight.get(path[0])));
             calculatePath(swingingPath, indexStack, treeHeight, i);
         }
         /*
@@ -78,6 +79,7 @@ public class Main {
     }
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
+
         System.out.println();
         System.out.println("    1. Random Tree Height");
         System.out.println("    2. Manual Input Height");
@@ -91,7 +93,6 @@ public class Main {
             for (int i = 1; i <= numberOfTree; i++) {
                 int height = rand.nextInt(100) + 1;
                 treeHeight.add(height);
-
                 System.out.println("    Tree #" + i + " Height = " + height);
             }
         } else {
@@ -123,7 +124,7 @@ public class Main {
             choice = scan.nextInt();
             if (choice > 2 || choice < 1) throw new Exception();
         } catch (Exception e) {
-            System.out.println("Invalid Input, Please Try Again.\n");
+            System.out.println("Invalid Input, Please Try Again.");
             choice = inputChoice();
         }
 
@@ -162,7 +163,7 @@ public class Main {
         try {
             System.out.print("#Trees : ");
             numberOfTree = scan.nextInt();
-            if (numberOfTree <= 0) throw new Exception();
+            if (numberOfTree < 1) throw new Exception();
         } catch (Exception e) {
             System.out.println("Invalid Input, Please Try Again.\n");
             numberOfTree = inputTree();
