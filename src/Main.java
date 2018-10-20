@@ -1,4 +1,4 @@
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class Main {
         do {
 
             int numberOfTree = inputTree();
-            ArrayDeque<Integer> treeHeight = inputHeight(numberOfTree);
+            ArrayList<Integer> treeHeight = inputHeight(numberOfTree);
 
             choice = inputContinue();
 
@@ -20,19 +20,19 @@ public class Main {
 
     }
 
-    private static ArrayDeque<Integer> inputHeight(int numberOfTree) {
+    private static ArrayList<Integer> inputHeight(int numberOfTree) {
 
         System.out.println("    1. Random Tree Height");
         System.out.println("    2. Manual Input Height");
 
         int choice = inputChoice();
-        ArrayDeque<Integer> treeHeight = new ArrayDeque<>();
+        ArrayList<Integer> treeHeight = new ArrayList<>();
 
         if (choice == 1) {
             Random rand = new Random();
             for (int i = 1; i <= numberOfTree; i++) {
                 int height = rand.nextInt(100) + 1;
-                treeHeight.push(height);
+                treeHeight.add(height);
                 System.out.println("    Tree #" + i + " Height = " + height);
             }
         } else {
@@ -46,7 +46,7 @@ public class Main {
                         if (height > 100 || height < 1) throw new Exception();
                     } catch (Exception e) { height = 0; }
                 } while (height == 0);
-                treeHeight.push(height);
+                treeHeight.add(height);
             }
         }
 
