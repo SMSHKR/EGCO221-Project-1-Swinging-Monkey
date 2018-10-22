@@ -19,7 +19,14 @@ public class Main {
 
             int numberOfTree = inputTree();
             ArrayList<Integer> treeHeight = inputHeight(numberOfTree);
-            ArrayDeque<int []> swingingPath = calculatePath(treeHeight);
+
+            ArrayDeque<int []> swingingPath = new ArrayDeque<>();
+            ArrayDeque<Integer> indexStack = new ArrayDeque<>();
+
+            for (int index = 0; index < treeHeight.size(); index++) {
+                calculatePath(swingingPath, indexStack, treeHeight, index);
+                indexStack.push(index);
+            }
 
             printPath(swingingPath, treeHeight);
             System.out.printf("\nTotal Swinging Path = %,d\n", swingingPath.size());
@@ -38,24 +45,6 @@ public class Main {
             count++;
             System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", count, treeHeight.get(path[0]), treeHeight.get(path[1]));
         }
-    }
-
-    private static ArrayDeque<int []> calculatePath(ArrayList<Integer> treeHeight) {
-
-        ArrayDeque<int []> swingingPath = new ArrayDeque<>();
-        ArrayDeque<Integer> indexStack = new ArrayDeque<>();
-
-        for (int index = 0; index < treeHeight.size(); index++) {
-            if (indexStack.isEmpty()) indexStack.push(index);
-            else {
-                calculatePath(swingingPath, indexStack, treeHeight, index);
-                indexStack.push(index);
-            }
-        }
-
-        return swingingPath;
-
-
     }
 
     private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> indexStack, ArrayList<Integer> treeHeight, int index) {
@@ -118,7 +107,6 @@ public class Main {
             System.out.println("Invalid Input, Please Try Again.");
             choice = inputChoice();
         }
-
 
         return choice;
 
