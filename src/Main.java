@@ -29,7 +29,7 @@ public class Main {
             }
 
             printPath(swingingPath, treeHeight);
-            System.out.printf("\nTotal Swinging Path = %,d\n", swingingPath.size());
+            System.out.printf("\n   Total Swinging Path = %,d\n", swingingPath.size());
 
             choice = inputContinue();
 
@@ -43,7 +43,8 @@ public class Main {
         int count = 0;
         for (int [] path : swingingPath) {
             count++;
-            System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", count, treeHeight.get(path[0]), treeHeight.get(path[1]));
+            System.out.printf("%5d)   Tree #%-5d (%3d-ft) <--> Tree #%-5d (%3d-ft)\n",
+                              count, path[0] + 1, treeHeight.get(path[0]), path[1] + 1, treeHeight.get(path[1]));
         }
     }
 
@@ -71,7 +72,7 @@ public class Main {
         if (choice == 1) {
             Random rand = new Random();
             for (int i = 1; i <= numberOfTree; i++) {
-                int height = rand.nextInt(100) + 1;
+                int height = rand.nextInt(999) + 1;
                 treeHeight.add(height);
                 System.out.println("    Tree #" + i + " Height = " + height);
             }
@@ -81,9 +82,9 @@ public class Main {
                 do {
                     try {
                         Scanner scan = new Scanner(System.in);
-                        System.out.print("    Tree #" + i + " Height [1-100] = ");
+                        System.out.print("    Tree #" + i + " Height [1-999] = ");
                         height = scan.nextInt();
-                        if (height > 100 || height < 1) throw new Exception();
+                        if (height > 999 || height < 1) throw new Exception();
                     } catch (Exception e) { height = 0; }
                 } while (height == 0);
                 treeHeight.add(height);
