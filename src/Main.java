@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+class EmptyInputException extends Exception {
+    EmptyInputException() { super(); }
+}
+
 public class Main {
 
     public static void main(String[] args) {
@@ -12,10 +16,10 @@ public class Main {
         do {
 
             System.out.print(" ---- \n" +
-                    "/    \\ \n" +
-                    "\\    /\n" +
-                    " ---- \n" +
-                    "  ||  \n");
+                             "/    \\ \n" +
+                             "\\    /\n" +
+                             " ---- \n" +
+                             "  ||  \n");
 
             int numberOfTree = inputTree();
             ArrayList<Integer> treeHeight = inputHeight(numberOfTree);
@@ -85,20 +89,56 @@ public class Main {
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
 
+        ArrayList<Integer> treeHeight = new ArrayList<>();
+
         System.out.println();
         System.out.println("    1. Random Tree Height");
         System.out.println("    2. Manual Input Height");
 
         int choice = inputChoice();
-        System.out.println();
-        ArrayList<Integer> treeHeight = new ArrayList<>();
 
+        if (choice == 2) {
+            System.out.println("    Tree height support range : 1 ~ 999");
+            System.out.println("    Leave field empty to Random the rest.");
+            System.out.println();
+        }
+
+        for (int i = 1; i <= numberOfTree; i++) {
+
+            int height;
+
+            if (choice == 1) {
+                Random rand = new Random();
+                height = rand.nextInt(999) + 1;
+                System.out.printf("    Tree #%-5d Height = %d\n", i, height);
+                treeHeight.add(height);
+            }
+            else {
+                do {
+                    try {
+                        System.out.printf("    Tree #%-5d Height = ", i);
+                        Scanner scan = new Scanner(System.in);
+                        String medium = scan.nextLine();
+
+                        if (medium.equals("")) throw new EmptyInputException();
+
+                        height = Integer.parseInt(medium.trim());
+                        if (height > 999 || height < 1) throw new Exception();
+                        treeHeight.add(height);
+
+                    } catch (EmptyInputException e) { choice = 1; i--; break; }
+                      catch (Exception e) { height = 0; }
+                } while (height == 0);
+            }
+
+        }
+/*
         if (choice == 1) {
             Random rand = new Random();
             for (int i = 1; i <= numberOfTree; i++) {
                 int height = rand.nextInt(999) + 1;
                 treeHeight.add(height);
-                System.out.println("    Tree #" + i + " Height = " + height);
+                System.out.printf("    Tree #%-5d Height = %d\n", i, height);
             }
         } else {
             for (int i = 1; i <= numberOfTree; i++) {
@@ -114,7 +154,7 @@ public class Main {
                 treeHeight.add(height);
             }
         }
-
+*/
         return treeHeight;
 
     }
@@ -132,6 +172,8 @@ public class Main {
             System.out.println("Invalid Input, Please Try Again.");
             choice = inputChoice();
         }
+
+        System.out.println();
 
         return choice;
 
