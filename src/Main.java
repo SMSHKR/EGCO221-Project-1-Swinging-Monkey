@@ -67,15 +67,6 @@ public class Main {
             while (!indexStack.isEmpty() && treeHeight.get(indexStack.peek()).equals(treeHeight.get(path[0])));
             calculatePath(swingingPath, indexStack, treeHeight, i);
         }
-        /*
-        while (!indexStack.isEmpty() && indexStack.peek() < height) {
-            indexStack.pop();
-            if (!indexStack.isEmpty()) {
-                numberOfSwingingPath++;
-                System.out.printf("%3d.   From %3d-ft tree to %3d-ft tree\n", numberOfSwingingPath, indexStack.peek(), height);
-            }
-        }
-        */
     }
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
