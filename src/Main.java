@@ -45,11 +45,11 @@ public class Main {
         ArrayDeque<int []> swingingPath = new ArrayDeque<>();
         ArrayDeque<Integer> indexStack = new ArrayDeque<>();
 
-        for (int i = 0; i < treeHeight.size(); i++) {
-            if (indexStack.isEmpty()) indexStack.push(i);
+        for (int index = 0; index < treeHeight.size(); index++) {
+            if (indexStack.isEmpty()) indexStack.push(index);
             else {
-                calculatePath(swingingPath, indexStack, treeHeight, i);
-                indexStack.push(i);
+                calculatePath(swingingPath, indexStack, treeHeight, index);
+                indexStack.push(index);
             }
         }
 
@@ -58,14 +58,14 @@ public class Main {
 
     }
 
-    private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> indexStack, ArrayList<Integer> treeHeight, int i) {
+    private static void calculatePath(ArrayDeque<int []> swingingPath, ArrayDeque<Integer> indexStack, ArrayList<Integer> treeHeight, int index) {
         if (indexStack.isEmpty()) return;
-        int [] path = {indexStack.peek(), i};
+        int [] path = {indexStack.peek(), index};
         swingingPath.add(path);
         if (treeHeight.get(path[0]) < treeHeight.get(path[1])) {
             do { indexStack.pop(); }
             while (!indexStack.isEmpty() && treeHeight.get(indexStack.peek()).equals(treeHeight.get(path[0])));
-            calculatePath(swingingPath, indexStack, treeHeight, i);
+            calculatePath(swingingPath, indexStack, treeHeight, index);
         }
     }
 
