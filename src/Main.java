@@ -132,29 +132,7 @@ public class Main {
             }
 
         }
-/*
-        if (choice == 1) {
-            Random rand = new Random();
-            for (int i = 1; i <= numberOfTree; i++) {
-                int height = rand.nextInt(999) + 1;
-                treeHeight.add(height);
-                System.out.printf("    Tree #%-5d Height = %d\n", i, height);
-            }
-        } else {
-            for (int i = 1; i <= numberOfTree; i++) {
-                int height;
-                do {
-                    try {
-                        Scanner scan = new Scanner(System.in);
-                        System.out.print("    Tree #" + i + " Height [1-999] = ");
-                        height = scan.nextInt();
-                        if (height > 999 || height < 1) throw new Exception();
-                    } catch (Exception e) { height = 0; }
-                } while (height == 0);
-                treeHeight.add(height);
-            }
-        }
-*/
+
         return treeHeight;
 
     }
