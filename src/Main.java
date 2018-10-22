@@ -28,7 +28,8 @@ public class Main {
                 indexStack.push(index);
             }
 
-            printPath(swingingPath, treeHeight);
+            boolean output = outputPrompt();
+            if (output) printPath(swingingPath, treeHeight);
             System.out.printf("\n   Total Swinging Path = %,d\n", swingingPath.size());
 
             choice = inputContinue();
@@ -57,6 +58,29 @@ public class Main {
             while (!indexStack.isEmpty() && treeHeight.get(indexStack.peek()).equals(treeHeight.get(path[0])));
             calculatePath(swingingPath, indexStack, treeHeight, index);
         }
+    }
+
+    private static boolean outputPrompt() {
+
+        String choice;
+        boolean output = false;
+        Scanner scan = new Scanner(System.in);
+
+        do {
+            try {
+                System.out.print("\nDo you want output ? (Y/N) : ");
+                choice = scan.nextLine();
+                choice = choice.trim();
+                if (choice.equalsIgnoreCase("Y")) output = true;
+                else if (!choice.equalsIgnoreCase("N")) throw new Exception();
+            } catch (Exception e) {
+                System.out.println("Invalid Input, Please Try Again.");
+                choice = "";
+            }
+        } while (choice.equalsIgnoreCase(""));
+
+        return output;
+
     }
 
     private static ArrayList<Integer> inputHeight(int numberOfTree) {
